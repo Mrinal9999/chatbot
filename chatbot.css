@@ -1,3 +1,4 @@
+  
 body{
     font-family: Arial, sans-serif;
     margin: 0;
@@ -17,10 +18,10 @@ body{
     padding: 20px;
     text-align: center;
     height: 50px;
-    width: 130vh;
+    width: auto;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 14px rgba(255, 255, 255, 0.1);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -32,13 +33,13 @@ body{
 
 .chat-input-container{
     background-color: #2a2a2a; 
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 10px rgba(255, 255, 255, 0.1);
     overflow: hidden;
     display: flex;
-    flex-direction: column;
-    height: 65vh;
-    width: 130vh;
+    flex-direction: row;
+    margin-top: auto;
     padding: 20px;
+    outline: none;
 }
 
 
@@ -49,16 +50,73 @@ h1{
 }
 
 .chat-messages{
+    background-color: #2a2a2a; 
+    box-shadow: 0 10px 10px rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
     overflow-y: auto;
+    height: 65vh;
+    box-sizing: border-box;
+
 }
  
 .message{
     display: flex;
-    align-items: flex-start;
-    margin-bottom: 15px;
 }
 
+#user-input{
+    height: 3rem;
+    width: 115vh;
+    background-color: rgba(63, 59, 59,0.5);
+    color: thistle;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+}
+
+#send-button{
+    margin-left: 1rem;
+    width: 7rem;
+    background-color: rgb(75,136,235);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+     
+     
+}
+
+
+ .user-message {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: row-reverse;
+    height: 1.22rem;
+    height: 2rem;
+    width: auto;
+    margin-top: 50px;
+}
+
+input[type="text"] {
+    padding-left: 1rem;
+    font-size: 1.1rem;
+}
+
+.message-content{
+    margin: 0.7rem;
+    margin-top: auto;
+    align-items: center;
+}
+
+ .profile-image{
+    src:"user.jpg";
+    height: 2.5rem;
+    width: auto;
+    border-radius: 50%;
+    object-fit:cover; 
+    padding: 1rem;
+}
 
 
 
