@@ -11,7 +11,7 @@ body {
   color: beige;
 }
 
-.container{
+.container {
   max-width: 65vw;
 }
 
@@ -23,7 +23,7 @@ body {
   width: auto;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.1);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -40,8 +40,6 @@ body {
   margin-top: auto;
   padding: 20px;
   outline: none;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
 }
 
 h1 {
@@ -91,7 +89,6 @@ h1 {
   padding: 0.7rem;
   height: auto;
   width: auto;
- 
 }
 
 input[type="text"] {
@@ -124,14 +121,13 @@ input[type="text"] {
   width: auto;
   line-height: 1.5em;
   font-size: 1.1rem;
-  
 }
 
-#send-button:hover{
+#send-button:hover {
   background-color: #3a7bc8;
 }
 
-#send-button:disabled{
+#send-button:disabled {
   background-color: #2a5a8a;
 }
 
@@ -141,14 +137,58 @@ input[type="text"] {
 
 ::-webkit-scrollbar-track {
   background-color: #2a2a2a;
-
 }
 
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
   background-color: #4a4a4a;
-  border-radius:0.6rem ;
+  border-radius: 0.6rem;
 }
 
-::-webkit-scrollbar-thumb:hover{
+::-webkit-scrollbar-thumb:hover {
   background-color: #5a5a5a;
+}
+
+@media (max-width: 480px) {
+  .container {
+    max-width: 85vw;
+    max-height: 75vh;
+  }
+
+  .chat-messages {
+    height: 50vh;
+  }
+
+  .chat-header {
+    height: 2rem;
+  }
+
+  #user-input {
+    width: 50vh;
+    height: 2rem;
+  }
+
+  input[type="text"] {
+    padding-left: 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  #send-button {
+    font-size: 00.8rem;
+  }
+
+  .profile-image {
+    height: 2rem;
+  }
+
+  .message-content {
+    padding: 0.6rem;
+    margin: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .bot-message {
+    font-size: 00.8rem;
+    line-height: 1.2em;
+    padding: 1em;
+  }
 }
