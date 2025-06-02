@@ -1,1 +1,1 @@
-"INTELLIX" A ChatBot AI which answers your every question!
+"INTELLIX" is an AI ChatBOT which answers your every question!
