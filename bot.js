@@ -215,24 +215,8 @@ function voice() {
   recognition.continuous = false;
 
   recognition.start();
-  recognition.onresult = function (event) {
-  const transcript = event.results[0][0].transcript.trim();
-  console.log("Recognized:", transcript);
-  if (transcript.length > 0) {
-    userInput.value = transcript;
-
-    setTimeout(() => {
-      if (recognition) recognition.stop();
-      clearInterval(placeholderInterval);
-      stopWaveform();
-      wave.classList.add("hidden");
-      isListening = false;
-      userInput.classList.remove("listening-placeholder");
-      userInput.setAttribute("placeholder", "Type your message...");
-      handleUserInput(); // ✅ Now it triggers chat correctly
-    }, 100);
-  }
-};
+  recognition.onresult = e => userInput.value = e.results[0][0].transcript;
+  recognition.onend = () => { stopAll(); handleUserInput(); };
   recognition.onerror = () => stopAll();
 }
 
