@@ -176,7 +176,7 @@ function voice() {
     alert("⚠️ Voice recognition is not supported on this browser.");
     return;
   }
-  const wave = canvas;
+  const wave = document.getElementById("waveform");
   const userInput = document.getElementById("user-input");
   const placeholders = ["Listening", "Listening.", "Listening..", "Listening..."];
   let placeholderInterval, placeholderIndex = 0;
