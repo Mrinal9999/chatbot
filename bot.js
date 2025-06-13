@@ -1,6 +1,12 @@
 const chatMessages = document.getElementById("chat-messages");
 const userInput = document.getElementById("user-input");
 const sendButton = document.getElementById("send-button");
+const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+const isSpeechSupported = 'webkitSpeechRecognition' in window;
+
+if (!isSpeechSupported) {
+  alert("⚠️ Voice recognition is not supported on this browser. Please use Google Chrome on a desktop or Android.");
+}
 
 let chatHistory = JSON.parse(localStorage.getItem("chatHistory")) || [];
 
@@ -25,29 +31,7 @@ function loadChatHistory() {
 
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
-
 loadChatHistory();
-
-// async function askDeepSeek(userMessage) {
-//     const DEEPSEEK_API_KEY = "sk-a5f03e607a1f436cb63c739136d9eaec";
-//     const DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions";
-
-//     try {
-//     const response = await axios.post(
-//       "http://localhost:3000/api/chat",
-//       {
-//         model: "deepseek-chat",
-//         messages: [{ role: "user", content: userMessage }],
-//         temperature: 0.7,
-//       }
-//     );
-//     return response.data.choices[0].message.content;
-//   } catch (error) {
-//     console.error("API Error:", error);
-//     return "Sorry, the bot is unavailable right now.";
-//   }
-// }
-
 
 async function generateResponse(message) {
   const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDzloRWOZYs-0Hor2gDoTec5K8tS5zFPk0", {
@@ -118,13 +102,12 @@ userInput.addEventListener("keypress", e => {
   }
 });
 
- let isListening = false;
+let isListening = false;
 let recognition;
 let audioContext, analyser, dataArray, animationId;
 
 const canvas = document.getElementById("waveform");
 const ctx = canvas.getContext("2d");
-
 async function startWaveform() {
   try {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -189,6 +172,10 @@ function stopWaveform() {
 }
 
 function voice() {
+   if (!isSpeechSupported) {
+    alert("⚠️ Voice recognition is not supported on this browser.");
+    return;
+  }
   const wave = canvas;
   const userInput = document.getElementById("user-input");
   const placeholders = ["Listening", "Listening.", "Listening..", "Listening..."];
@@ -250,6 +237,13 @@ document.getElementById("clear-history").addEventListener("click", () => {
     localStorage.removeItem("chatHistory");
     chatMessages.innerHTML = '';
     chatHistory = [];
+  }
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  if (!isSpeechSupported) {
+    const micIcon = document.querySelector(".fa-microphone");
+    if (micIcon) micIcon.style.display = "none";
   }
 });
 
