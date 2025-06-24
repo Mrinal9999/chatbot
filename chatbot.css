@@ -1843,11 +1843,17 @@ html.light-mode #user-input.listening-placeholder::placeholder {
   color: #0077cc;
 }
 html.light-mode #send-button {
-  background-color: #4b88eb;
-  color: white;
+   background-color: #4b88eb;
+   color: white;
+   border-radius: 0.3125in;
+   font-size: 1.1rem;
+   width: 7rem;
+   border: 0.5px solid #c0c0c0;
+   box-shadow: 0 0 7px 0px rgba(97, 97, 97, 0.7);
+   transition: box-shadow 0.3s ease-in-out;
 }
 html.light-mode .fa {
-  color: #333333 !important;
+  color: #333333;
 }
 html.light-mode .bot-message .message-content {
   background-color: #d0e4ff;
