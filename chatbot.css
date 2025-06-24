@@ -1852,8 +1852,11 @@ html.light-mode #send-button {
    box-shadow: 0 0 7px 0px rgba(97, 97, 97, 0.7);
    transition: box-shadow 0.3s ease-in-out;
 }
+html.light-mode #send-button:disabled {
+    background-color: #2a5a8a;
+}
 html.light-mode .fa {
-  color: #333333;
+  color: #333333 !important;
 }
 html.light-mode .bot-message .message-content {
   background-color: #d0e4ff;
