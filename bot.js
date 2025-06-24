@@ -93,53 +93,75 @@ userInput.addEventListener("keypress", _0x46c078 => {
     handleUserInput();
   }
 });
+
+let isListening = false;
+let recognition = null;
+
 function voice() {
-  const _0x47a7b2 = document.getElementById("audio-wave");
-  const _0x4ab1db = document.getElementById("user-input");
-  const _0x504917 = ["Listening", "Listening.", "Listening..", 'Listening...'];
-  let _0x5ab6ea = null;
-  let _0x1448bc = 0x0;
-  const _0x2195f9 = () => {
-    _0x4ab1db.setAttribute('placeholder', _0x504917[0x0]);
-    _0x4ab1db.classList.add('listening-placeholder');
-    _0x5ab6ea = setInterval(() => {
-      _0x1448bc = (_0x1448bc + 0x1) % _0x504917.length;
-      _0x4ab1db.setAttribute("placeholder", _0x504917[_0x1448bc]);
-    }, 0x1f4);
+  const audioWave = document.getElementById("audio-wave");
+  const userInput = document.getElementById("user-input");
+  const placeholders = ["Listening", "Listening.", "Listening..", "Listening..."];
+  let placeholderInterval = null;
+  let placeholderIndex = 0;
+
+  const startPlaceholder = () => {
+    userInput.setAttribute('placeholder', placeholders[0]);
+    userInput.classList.add('listening-placeholder');
+    placeholderInterval = setInterval(() => {
+      placeholderIndex = (placeholderIndex + 1) % placeholders.length;
+      userInput.setAttribute("placeholder", placeholders[placeholderIndex]);
+    }, 500);
   };
-  const _0x35029f = () => {
-    clearInterval(_0x5ab6ea);
-    _0x5ab6ea = null;
-    _0x1448bc = 0x0;
-    _0x4ab1db.classList.remove('listening-placeholder');
-    _0x4ab1db.setAttribute("placeholder", '');
+
+  const stopPlaceholder = () => {
+    clearInterval(placeholderInterval);
+    placeholderInterval = null;
+    placeholderIndex = 0;
+    userInput.classList.remove('listening-placeholder');
+    userInput.setAttribute("placeholder", '');
     setTimeout(() => {
-      _0x4ab1db.setAttribute('placeholder', "Type your message...");
-    }, 0x14);
+      userInput.setAttribute('placeholder', "Type your message...");
+    }, 20);
   };
-  const _0x189376 = new webkitSpeechRecognition();
-  _0x189376.lang = "en-GB";
-  _0x189376.interimResults = false;
-  _0x189376.continuous = false;
-  _0x189376.onstart = function () {
-    _0x2195f9();
-    _0x47a7b2.classList.remove('hidden');
-  };
-  _0x189376.onresult = function (_0x46400f) {
-    const _0x376528 = _0x46400f.results[0x0][0x0].transcript;
-    _0x4ab1db.value = _0x376528;
-  };
-  _0x189376.onend = function () {
-    _0x35029f();
-    _0x47a7b2.classList.add("hidden");
-    handleUserInput();
-  };
-  _0x189376.onerror = function () {
-    _0x35029f();
-    _0x47a7b2.classList.add("hidden");
-  };
-  _0x189376.start();
+
+  if (!recognition) {
+    recognition = new webkitSpeechRecognition();
+    recognition.lang = "en-GB";
+    recognition.interimResults = false;
+    recognition.continuous = false;
+
+    recognition.onstart = function () {
+      isListening = true;
+      startPlaceholder();
+      audioWave.classList.remove('hidden');
+    };
+
+    recognition.onresult = function (event) {
+      const transcript = event.results[0][0].transcript;
+      userInput.value = transcript;
+    };
+
+    recognition.onend = function () {
+      isListening = false;
+      stopPlaceholder();
+      audioWave.classList.add("hidden");
+      handleUserInput();
+    };
+
+    recognition.onerror = function () {
+      isListening = false;
+      stopPlaceholder();
+      audioWave.classList.add("hidden");
+    };
+  }
+
+  if (isListening) {
+    recognition.stop();
+  } else {
+    recognition.start();
+  }
 }
+
 const themeToggle = document.getElementById("theme-toggle");
 if (localStorage.getItem('theme') === 'light') {
   document.documentElement.classList.add("light-mode");
@@ -157,3 +179,10 @@ document.getElementById("clear-history").addEventListener("click", () => {
     chatHistory = [];
   }
 });
+
+
+// Copyright © 2025 all rights reserved by Aman Raj & Mrinal Thakur.
+// Developed by "Aman Raj & Mrinal Thakur".
+// API used for this ChatBOT is Google's "Gemini 1.5 Flash".
+// The credits of designing and web development goes to Aman Raj.
+// The credits of API intigration & JavaScript goes to Mrinal Thakur.
